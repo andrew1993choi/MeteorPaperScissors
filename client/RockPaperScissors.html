@@ -1,0 +1,88 @@
+<head>
+  <title>RockPaperScissors</title>
+</head>
+
+<template name="main">
+    <h1>Rock Paper Scissors</h1>
+    {{> yield}}
+    <hr />
+</template>
+
+<template name="navigation">
+    <ul>
+        <li><a href="{{pathFor route='player1'}}">Player 1</a></li>
+        <li><a href="{{pathFor route='player2'}}">Player 2</a></li>
+    </ul>
+</template>
+
+<!-- Home screen to choose to be Player 1 or Player 2-->
+<template name="home">
+    <h2>Let's Play Rock Paper Scissors!</h2>
+	<p>Join as Player 1 or Player 2</p>
+	{{> navigation}}
+</template>
+
+<!-- Player 1 screen to play rock, paper, scissors -->
+<template name="player1">
+    <h2>Player 1</h2>
+	{{> game_play}}
+</template>
+
+<!-- Player 2 screen to play rock, paper, scissors -->
+<template name="player2">
+    <h2>Player 2</h2>
+	{{> game_play}}
+</template>
+
+<!-- Template for game play -->
+<template name="game_play">
+	{{#if connected}}
+		<h3>PLAYING!</h3>
+			{{#if choosing}}
+				<p>Rock, Paper or Scissors?</p>
+				<p>You chose: {{choice}}</p>
+				<p>They chose: {{other_choice}}</p>
+				{{> game_rock}}
+				{{> game_paper}}
+				{{> game_scissors}}
+			{{else}}
+				<p>Who won?</p>
+				{{> result}}
+				{{> game_reset}}
+			{{/if}}
+	{{else}}
+		<h3>Waiting on other player</h3>
+	{{/if}}
+</template>
+
+<!-- Template for all the buttons -->
+<template name="game_rock">
+	<input type='button' value='ROCK' class='rock'>
+</template>
+
+<template name="game_paper">
+	<input type='button' value='PAPER' class='paper'>
+</template>
+
+<template name="game_scissors">
+	<input type='button' value='SCISSORS' class='scissors'>
+</template>
+
+<template name="game_reset">
+	<input type='button' value='NEW GAME' class='scissors'>
+</template>
+
+<!-- Template to display results -->
+<template name="result">
+	<table>
+	  <tr>
+		<th>Player 1</th>
+		<th>Player 2</th> 
+	  </tr>
+	  <tr>
+		<td>{{player1_result}}</td>
+		<td>{{player2_result}}</td>
+	  </tr>
+	</table>
+	<p><b>{{winner}}</b></p>
+</template>
